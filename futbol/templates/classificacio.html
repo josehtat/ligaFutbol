@@ -1,0 +1,25 @@
+<h1>{{nom_lliga}}</h1>
+<table border="1">
+	<tr align="center">
+		<th>Posició</th>
+		<th>Equip</th>
+		<th>Punts</th>
+		<th>Victorias</th>
+		<th>Derrotas</th>
+		<th>Empats</th>
+		<th>Goles favor</th>
+		<th>Goles contra</th>
+	</tr>
+	{% for equip in classificacio %}
+		<tr align="center">
+			<td>{{forloop.counter}}</td>
+			<td>{{equip.equip}}</td>
+			<td>{{equip.punts}}</td>
+			<td>{{equip.victorias}}</td>
+			<td>{{equip.derrotas}}</td>
+			<td>{{equip.empates}}</td>
+			<td>{{equip.goles_favor}}</td>
+			<td>{{equip.goles_contra}}</td>
+		</tr>
+	{% endfor %}
+</table>
