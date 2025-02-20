@@ -38,7 +38,7 @@ def pichichis(request):
             lliga = form.cleaned_data.get("lligueta")
             gs = Jugador.objects.filter(equip_lliga=lliga).order_by('-goles')
             for jugador in gs:
-                jugadors.append({"jugador": jugador.nombre, "goles": jugador.gols})
+                jugadors.append({"jugador": jugador.nombre, "goles": jugador.gols()})
     return render(request, "pichichi.html", {"jugadors": jugadors, "form": form})
 
 def menu(request):
