@@ -19,6 +19,9 @@ from django.urls import path
 from futbol import views
 
 urlpatterns = [
-    path('classificacio/', views.classificacio),
+   # path('classificacio/', views.classificacio),
     path('admin/', admin.site.urls),
+    path("menu", views.menu, name="menu"),
+    path("nou_jugador", views.nou_jugador, name="nou_jugador"),
+    path("classificacio/<int:lliga_id>", views.classificacio, name="classificacio")
 ]

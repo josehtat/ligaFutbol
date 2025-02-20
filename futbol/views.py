@@ -1,9 +1,42 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django import forms
 from futbol.models import *
 
 
-def classificacio(request):
-    lliga = Lliga.objects.all()[1]
+class MenuForm(forms.Form):
+    lligueta = forms.ModelChoiceField(queryset=Lliga.objects.all())
+    dades = forms.CharField(required=False)
+
+class JugadorForm(forms.ModelForm):
+    class Meta:
+        model = Jugador
+        fields = "__all__"
+
+def nou_jugador(request):
+    if request.method == 'POST':
+        form = JugadorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('nou_jugador')
+    else:
+        form = JugadorForm()
+    return render(request, "menu.html", {"form": form})
+
+def menu(request):
+    form = MenuForm()
+    if request.method == "POST":
+        form = MenuForm(request.POST)
+        if form.is_valid():
+            lliga = form.cleaned_data.get("lligueta")
+            # cridem a /classificacio/<lliga_id>
+            return redirect('classificacio',lliga.id)
+    return render(request, "menu.html",{
+                    "form": form,
+            })
+
+
+def classificacio(request, lliga_id):
+    lliga = Lliga.objects.get(id=lliga_id)
     equips = lliga.equips.all()
     classi = []
     
