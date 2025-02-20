@@ -1,0 +1,14 @@
+<h1>Pichichis</h1>
+
+<table>
+  <tr>
+    <th>Jugador</th>
+    <th>Goles</th>
+  </tr>
+  {% for jugador in jugadors %}
+  <tr>
+    <td>{{ jugador.jugador }}</td>
+    <td>{{ jugador.goles }}</td>
+  </tr>
+  {% endfor %}
+</table>

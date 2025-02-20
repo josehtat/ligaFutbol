@@ -33,6 +33,9 @@ class Jugador(models.Model):
 
     def __str__(self):
         return f"{self.nom} ({self.equip.nom})"
+    
+    def gols(self):
+        return self.event_set.filter(tipus_esdeveniment = 'gol').count()
 
 class Partit(models.Model):
     lliga = models.ForeignKey(Lliga, on_delete=models.CASCADE, related_name="partits")

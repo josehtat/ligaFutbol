@@ -23,5 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("menu", views.menu, name="menu"),
     path("nou_jugador", views.nou_jugador, name="nou_jugador"),
+    path('pichichis/', views.pichichis, name='pichichis'),
     path("classificacio/<int:lliga_id>", views.classificacio, name="classificacio")
 ]

@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django import forms
 from futbol.models import *
-
+from django.db import models
+from futbol.models import Jugador
 
 class MenuForm(forms.Form):
     lligueta = forms.ModelChoiceField(queryset=Lliga.objects.all())
@@ -10,6 +11,11 @@ class MenuForm(forms.Form):
 class JugadorForm(forms.ModelForm):
     class Meta:
         model = Jugador
+        fields = "__all__"
+
+class LligaForm(forms.ModelForm):
+    class Meta:
+        model = Lliga
         fields = "__all__"
 
 def nou_jugador(request):
@@ -21,6 +27,19 @@ def nou_jugador(request):
     else:
         form = JugadorForm()
     return render(request, "menu.html", {"form": form})
+
+
+def pichichis(request):
+    jugadors = []
+    form = LligaForm()
+    if request.method == "POST":
+        form = LligaForm(request.POST)
+        if form.is_valid():
+            lliga = form.cleaned_data.get("lligueta")
+            gs = Jugador.objects.filter(equip_lliga=lliga).order_by('-goles')
+            for jugador in gs:
+                jugadors.append({"jugador": jugador.nombre, "goles": jugador.gols})
+    return render(request, "pichichi.html", {"jugadors": jugadors, "form": form})
 
 def menu(request):
     form = MenuForm()
